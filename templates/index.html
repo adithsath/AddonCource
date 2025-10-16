@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Height (cm):</label>
+            <input type="text" name="height" placeholder="e.g. 170">
+
+            <label>Weight (kg):</label>
+            <input type="text" name="weight" placeholder="e.g. 65">
+
+            <button type="submit">Calculate BMI</button>
+        </form>
+
+        {% if result %}
+        <div class="result {{ css_class }}">
+            <p>Your BMI: {{ result }}</p>
+            <p>Category: {{ category }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
